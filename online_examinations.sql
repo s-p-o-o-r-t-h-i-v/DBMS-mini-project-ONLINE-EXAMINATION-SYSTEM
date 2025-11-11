@@ -269,7 +269,7 @@ FROM Exam_Center c
 JOIN Examination e ON c.Exam_ID = e.Exam_ID;
 
 --  AGGREGATE QUERIES
-SELECT e.Exam_Name, COUNT(se.Student_ID) AS No_of_kids
+SELECT e.Exam_Name, COUNT(se.Student_ID) AS Students
 FROM Student_Exam se
 JOIN Examination e ON se.Exam_ID = e.Exam_ID
 GROUP BY e.Exam_Name;
