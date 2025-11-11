@@ -224,9 +224,7 @@ BEGIN
 END //
 DELIMITER ;
 
--- ======================================================
--- 5️⃣ TRIGGER
--- ======================================================
+--  TRIGGER
 DELIMITER //
 CREATE TRIGGER trg_auto_grade
 BEFORE INSERT ON Result
@@ -238,7 +236,7 @@ DELIMITER ;
 
 -- ======================================================
 -- 6️⃣ TEST FUNCTION & TRIGGER INVOCATION
--- ======================================================
+
 CALL AddStudent('Arjun Rao', 'B.Tech', 'Bangalore');
 CALL RegisterStudentForExam(4, 403);
 CALL AddQuestion('What is a primary key?', 'A unique identifier for a record', 301, 403);
@@ -249,7 +247,7 @@ VALUES (705, 86, 403, 4);
 SELECT * FROM Result;
 
 -- ======================================================
--- 7️⃣ NESTED QUERY
+--  NESTED QUERY
 -- ======================================================
 SELECT Name
 FROM Student
@@ -260,9 +258,7 @@ WHERE Student_ID IN (
     AND Score > (SELECT AVG(Score) FROM Result WHERE Exam_ID = 401)
 );
 
--- ======================================================
--- 8️⃣ JOIN QUERIES
--- ======================================================
+--  JOIN QUERIES
 SELECT s.Name, e.Exam_Name, r.Score, r.Grade_Obtained
 FROM Result r
 JOIN Student s ON r.Student_ID = s.Student_ID
@@ -272,10 +268,8 @@ SELECT c.Center_Name, e.Exam_Name
 FROM Exam_Center c
 JOIN Examination e ON c.Exam_ID = e.Exam_ID;
 
--- ======================================================
--- 9️⃣ AGGREGATE QUERIES
--- ======================================================
-SELECT e.Exam_Name, COUNT(se.Student_ID) AS No_of_Students
+--  AGGREGATE QUERIES
+SELECT e.Exam_Name, COUNT(se.Student_ID) AS No_of_kids
 FROM Student_Exam se
 JOIN Examination e ON se.Exam_ID = e.Exam_ID
 GROUP BY e.Exam_Name;
