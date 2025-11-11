@@ -1,4 +1,3 @@
--- ======================================================
 -- ONLINE EXAMINATION SYSTEM
 
 DROP DATABASE IF EXISTS examination_system;

@@ -246,45 +246,56 @@ VALUES (705, 86, 403, 4);
 
 SELECT * FROM Result;
 
--- ======================================================
---  NESTED QUERY
--- ======================================================
-SELECT Name
-FROM Student
-WHERE Student_ID IN (
-    SELECT Student_ID
-    FROM Result
-    WHERE Exam_ID = 401
-    AND Score > (SELECT AVG(Score) FROM Result WHERE Exam_ID = 401)
-);
-
 --  JOIN QUERIES
-SELECT s.Name, e.Exam_Name, r.Score, r.Grade_Obtained
+-- Show student name, subject, score, and grade
+SELECT 
+    s.Name AS Student_Name,
+    e.Subject AS Exam_Subject,
+    r.Score,
+    r.Grade_Obtained
 FROM Result r
 JOIN Student s ON r.Student_ID = s.Student_ID
-JOIN Examination e ON r.Exam_ID = e.Exam_ID;
+JOIN Exam e ON r.Exam_ID = e.Exam_ID;
 
-SELECT c.Center_Name, e.Exam_Name
-FROM Exam_Center c
-JOIN Examination e ON c.Exam_ID = e.Exam_ID;
+-- Show exam details (exam center–exam example)
+SELECT e.Exam_ID, e.Subject, e.Exam_Date, e.Max_Marks
+FROM Exam e;
 
 --  AGGREGATE QUERIES
-SELECT e.Exam_Name, COUNT(se.Student_ID) AS Students
-FROM Student_Exam se
-JOIN Examination e ON se.Exam_ID = e.Exam_ID
-GROUP BY e.Exam_Name;
+-- Count number of exams conducted
+SELECT COUNT(Exam_ID) AS Total_Exams FROM Exam;
 
-SELECT e.Exam_Name, AVG(r.Score) AS Average_Score
+-- Average score per exam
+SELECT e.Subject, AVG(r.Score) AS Average_Score
 FROM Result r
-JOIN Examination e ON r.Exam_ID = e.Exam_ID
-GROUP BY e.Exam_Name;
+JOIN Exam e ON r.Exam_ID = e.Exam_ID
+GROUP BY e.Subject;
 
-SELECT e.Exam_Name, MAX(r.Score) AS Highest_Score, MIN(r.Score) AS Lowest_Score
+-- Highest and lowest score per exam
+SELECT e.Subject, MAX(r.Score) AS Highest_Score, MIN(r.Score) AS Lowest_Score
 FROM Result r
-JOIN Examination e ON r.Exam_ID = e.Exam_ID
-GROUP BY e.Exam_Name;
+JOIN Exam e ON r.Exam_ID = e.Exam_ID
+GROUP BY e.Subject;
 
+-- Total score obtained by each student
 SELECT s.Name, SUM(r.Score) AS Total_Score
 FROM Result r
 JOIN Student s ON r.Student_ID = s.Student_ID
 GROUP BY s.Name;
+--  UPDATE AND DELETE EXAMPLES
+-- Update student’s result score (example)
+UPDATE Result
+SET Score = 90
+WHERE Student_ID = 1 AND Exam_ID = 1;
+
+-- View updated result
+SELECT * FROM Result WHERE Student_ID = 1;
+
+-- Delete a student and related results (example)
+DELETE FROM Result WHERE Student_ID = 3;
+DELETE FROM Student WHERE Student_ID = 3;
+
+-- Final student table after delete
+SELECT * FROM Student;
+
+
