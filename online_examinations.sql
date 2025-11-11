@@ -1,17 +1,10 @@
--- ======================================================
--- 🧾 ONLINE EXAMINATION SYSTEM DATABASE SCRIPT
--- ======================================================
--- Includes: CREATE, INSERT, TRIGGER, PROCEDURE/FUNCTION,
--- Nested Queries, Joins, and Aggregate Queries
--- ======================================================
+--  ONLINE EXAMINATION SYSTEM DATABASE SCRIPT
 
--- 1️⃣ CREATE DATABASE
+--  CREATE DATABASE
 CREATE DATABASE Examination_system;
 USE Examination_system;
 
--- ======================================================
--- 2️⃣ CREATE TABLES (DDL)
--- ======================================================
+--  CREATE TABLES (DDL)
 
 CREATE TABLE Student (
     Student_ID INT PRIMARY KEY AUTO_INCREMENT,
@@ -101,10 +94,7 @@ CREATE TABLE Attend (
     FOREIGN KEY (Exam_ID) REFERENCES Examination(Exam_ID) ON DELETE CASCADE
 );
 
--- ======================================================
--- 3️⃣ INSERT DATA (DML)
--- ======================================================
-
+-- 3️ INSERT DATA (DML)
 INSERT INTO Student (Name, Qualification, Address) VALUES
 ('SPOORTHI', 'BTech CS', 'Bangalore'),
 ('SRIVIDHYA', 'BTech IS', 'Hyderabad'),
@@ -158,10 +148,7 @@ INSERT INTO Result (Certificate_No, Score, Grade_Obtained, Exam_ID, Student_ID) 
 (703, 88, 'A', 402, 1),
 (704, 82, 'B+', 401, 3);
 
--- ======================================================
--- 4️⃣ FUNCTIONS AND PROCEDURES
--- ======================================================
-
+--  FUNCTIONS AND PROCEDURES
 DELIMITER //
 CREATE FUNCTION CalculateGrade(score INT)
 RETURNS VARCHAR(2)
@@ -234,8 +221,7 @@ BEGIN
 END //
 DELIMITER ;
 
--- ======================================================
--- 6️⃣ TEST FUNCTION & TRIGGER INVOCATION
+--  TEST FUNCTION & TRIGGER INVOCATION
 
 CALL AddStudent('Arjun Rao', 'B.Tech', 'Bangalore');
 CALL RegisterStudentForExam(4, 403);
